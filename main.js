@@ -78,12 +78,11 @@ async function main()
     const {episodesObj, charactersObj, locationObj} = await downloadData();
     const {episodes, characters, locations} = instantiateClasses(episodesObj, charactersObj, locationObj);
 
-    console.log("Started char_counter");
+    console.log("Started fulfilling Challenge requirements");
+    const requirementsStartTime = performance.now();
     const {CharCounter} = require("./rules-object/charCounter");
     const charCounter = new CharCounter();
-    saveJSON("chars",JSON.stringify(characters.characters, null, 4));
-    saveJSON("locations",JSON.stringify(locations.locations, null, 4));
-    saveJSON("episodes",JSON.stringify(episodes.episodes, null, 4));
+    
     const {EpisodeLocations} = require("./rules-object/episodeLocations");
     const episodeLocations = new EpisodeLocations();
     let res = 
@@ -92,7 +91,10 @@ async function main()
         episodeLocations.fulfillContract(locations,episodes,characters)
     ]
 
-    saveJSON("example",JSON.stringify(res, null, 4));
+    saveJSON("rick and morty chipax challenge", JSON.stringify(res, null, 4));
+
+    const requirementsEndTime = performance.now();
+    console.log(`finished fulfilling Challenge requirements in ${requirementsEndTime - requirementsStartTime} ms`);
 
     const endTime = performance.now();
 
