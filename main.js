@@ -84,7 +84,15 @@ async function main()
     saveJSON("chars",JSON.stringify(characters.characters, null, 4));
     saveJSON("locations",JSON.stringify(locations.locations, null, 4));
     saveJSON("episodes",JSON.stringify(episodes.episodes, null, 4));
-    saveJSON("example",JSON.stringify(charCounter.fulfillContract(locations,episodes,characters), null, 4));
+    const {EpisodeLocations} = require("./rules-object/episodeLocations");
+    const episodeLocations = new EpisodeLocations();
+    let res = 
+    [
+        charCounter.fulfillContract(locations,episodes,characters),
+        episodeLocations.fulfillContract(locations,episodes,characters)
+    ]
+
+    saveJSON("example",JSON.stringify(res, null, 4));
 
     const endTime = performance.now();
 
