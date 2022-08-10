@@ -60,9 +60,10 @@ class CharCounter
         const c = this.frequency(characters.characters, "c");
         const endTime = performance.now();
 
-        const time = endTime - startTime;
+        let time = endTime - startTime;
         const timeConstraint = 3000; //3 seconds, in milliseconds
         const in_time = time < timeConstraint
+        time = `${time} ms`;
         const structure = 
         {
             exercise_name: "Char counter",
