@@ -1,1 +1,2 @@
-I've decided to use node.js fetch API, but this requires version 18.7.0
+#Dependencies
+Node.js version 18.7.0
