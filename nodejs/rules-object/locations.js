@@ -1,4 +1,7 @@
-class location
+/**
+ * Holds data about a location
+ */
+class Location
 {
     constructor(id = "", name = "", type = "", dimension = "", residents = [])
     {
@@ -24,10 +27,29 @@ class location
     }
 }
 
-class locations
+/**
+ * Holds a many locations in a hashmap
+ */
+class Locations
 {
     constructor()
     {
         this.locations = {};
+        
+    }
+
+    addLocation(obj)
+    {
+        let residents = obj["residents"].map(resident => 
+            {
+                let sp = resident.split("/");
+                let rId = sp[sp.length - 1];
+                return rId
+            }
+        );
+        let l = new Location(obj["id"], obj["name"], obj["dimension"], residents);
+        this.locations[obj["id"]] = l;
     }
 }
+
+module.exports = {Location, Locations};
