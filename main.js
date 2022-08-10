@@ -28,7 +28,7 @@ async function downloadData()
     console.log(`Finished downloading Location data in ${(locationEndTime - locationStartTime) / 1000} seconds`);
 
     const downloadEndTime = performance.now();
-    console.log(`\n\n\n\nfinished downloading in ${(downloadEndTime - downloadStartTime) / 1000} seconds\n\n\n`);
+    console.log(`\n\nfinished downloading in ${(downloadEndTime - downloadStartTime) / 1000} seconds\n\n`);
 
     return { episodesObj, charactersObj, locationObj };
 }
@@ -65,7 +65,7 @@ function instantiateClasses(episodesObj, charactersObj, locationObj)
     console.log(`Finished instantiating locations ${locationInstEndTime - locationInstStartTime} in ms`);
 
     const instantiationEndTime = performance.now();
-    console.log(`Finished instantiating everything in ${instantiationEndTime - instantiationStartTime} ms`)
+    console.log(`\n\nFinished instantiating everything in ${instantiationEndTime - instantiationStartTime} ms\n\n`)
 
     return {episodes, characters, locations}
 }
@@ -78,7 +78,7 @@ async function main()
     const {episodesObj, charactersObj, locationObj} = await downloadData();
     const {episodes, characters, locations} = instantiateClasses(episodesObj, charactersObj, locationObj);
 
-    console.log("Started processing...");
+    console.log("Started char_counter");
     const {CharCounter} = require("./rules-object/charCounter");
     const charCounter = new CharCounter();
     saveJSON("chars",JSON.stringify(characters.characters, null, 4));
