@@ -36,32 +36,22 @@ function instantiateClasses(episodesObj, charactersObj, locationObj)
     const {Locations} = require("./rules-object/locations");
 
     const instantiationStartTime = performance.now();
-    console.log("Started instantiating episodes");
-    const epInstStartTime = performance.now();
+    console.log("Started instantiating Classes");
+    
     const episodes = new Episodes();
     for(let eps of episodesObj)
         episodes.addEpisode(eps);
-    const epInstEndTime = performance.now();
-    console.log(`Finished instantiating episodes in ${epInstEndTime - epInstStartTime} ms`);
-
-    console.log("Started instantiating characters");
-    const charInstStartTime = performance.now();
+    
     const characters = new Characters();
     for(let char of charactersObj)
         characters.addCharacter(char);
-    const charInstEndTime = performance.now();
-    console.log(`Finished instantiating characters in ${charInstEndTime - charInstStartTime} ms`);
 
-    console.log("Started instantiating locations");
-    const locationInstStartTime = performance.now();
     const locations = new Locations();
     for(let loc of locationObj)
         locations.addLocation(loc);
-    const locationInstEndTime = performance.now();
-    console.log(`Finished instantiating locations in ${locationInstEndTime - locationInstStartTime} ms`);
-
+    
     const instantiationEndTime = performance.now();
-    console.log(`Finished instantiating everything in ${instantiationEndTime - instantiationStartTime} ms`)
+    console.log(`Finished instantiating Classes in ${instantiationEndTime - instantiationStartTime} ms`)
 
     return {episodes, characters, locations}
 }
