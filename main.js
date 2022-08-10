@@ -10,24 +10,18 @@ async function downloadData()
 
     const downloadStartTime = performance.now();
     const cyan = `\x1b[36m%s`;
-    console.log(cyan, "Started downloading Episode data");
-    const epStartTime = performance.now();
-    const episodesObj = await fetchJSON(knownURLS.episodes);
-    const epEndTime = performance.now();
-    console.log(`Finished downloading Episode data in ${(epEndTime - epStartTime) / 1000} seconds`);
+    console.log(cyan, "Started downloading data");
+    
+    let episodesObj = fetchJSON(knownURLS.episodes);
+    let charactersObj = fetchJSON(knownURLS.characters);
+    let locationObj = fetchJSON(knownURLS.location);
+    
+    const [e, c, l] = await Promise.allSettled([episodesObj, charactersObj, locationObj]);
 
-    console.log("Started downloading Character data");
-    const charStartTime = performance.now();
-    const charactersObj = await fetchJSON(knownURLS.characters);
-    const charEndTime = performance.now();
-    console.log(`Finished downloading Character data in ${(charEndTime - charStartTime) / 1000} seconds`);
-
-    console.log("Started downloading Location data");
-    const locationStartTime = performance.now();
-    const locationObj = await fetchJSON(knownURLS.location);
-    const locationEndTime = performance.now();
-    console.log(`Finished downloading Location data in ${(locationEndTime - locationStartTime) / 1000} seconds`);
-
+    episodesObj = e.value;
+    charactersObj = c.value;
+    locationObj = l.value;
+    
     const downloadEndTime = performance.now();
     const endColor = `\x1b[0m`;
     console.log(`finished downloading in ${(downloadEndTime - downloadStartTime) / 1000} seconds`, endColor);
