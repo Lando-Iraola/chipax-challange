@@ -7,6 +7,9 @@ class EpisodeLocations
 
     fulfillContract(locations, episodes, characters)
     {
+        const { performance } = require('perf_hooks');
+        const startTime = performance.now();
+
         const results = [];
         const locs = locations.locations;
         
@@ -34,12 +37,19 @@ class EpisodeLocations
             
             results.push(requested_data);
         }
-        
+
+        const endTime = performance.now();
+
+        let time = endTime - startTime;
+        const timeConstraint = 3000; //3 seconds, in milliseconds
+        const in_time = time < timeConstraint
+        time = `${time} ms`;
+
         const structure = 
         {
             exercise_name: "Episode locations",
-            time: "1s 721.975698ms",
-            in_time: true,
+            time,
+            in_time,
             results
         }
 
