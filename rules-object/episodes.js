@@ -1,3 +1,7 @@
+/**
+ * Fulfills the Char Counter part of the challenge
+ * The description of this challenge can be found on https://www.notion.so/Rick-and-Morty-Challenge-84a1b794dc09429fb3178c2a24e7c217
+ */
 class Episode
 {
     constructor(id = "", name = "", air_date = "", episode = "", characters = [])
@@ -24,6 +28,10 @@ class Episode
     }
 }
 
+/**
+ * Holds a hashmap with many Episode for quick access.
+ * Character holds knowledge of these ids
+ */
 class Episodes
 {
     constructor()
@@ -31,6 +39,10 @@ class Episodes
         this.episodes = {};   
     }
 
+    /**
+     * Adds instance of Episode to episodes hashmap
+     * @param {*} obj JSON with episodes data from the rick and morty API 
+     */
     addEpisode(obj)
     {
         const characters = obj["characters"].map(character => 

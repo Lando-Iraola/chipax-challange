@@ -1,3 +1,7 @@
+/**
+ * Holds character data
+ * It exists so each character can provide the desired functionality by Char counter challenge
+ */
 class Character
 {
     constructor(id = "", name = "", status = "", species = "", gender = "", origin = "", location = "", episode = [])
@@ -27,6 +31,10 @@ class Character
     }
 }
 
+/**
+ * Holds a hashmap with many Character for quick access.
+ * Episode holds knowledge of these ids
+ */
 class Characters
 {
     constructor()
@@ -34,6 +42,10 @@ class Characters
         this.characters = {};   
     }
 
+    /**
+     * Adds instance of Character to characters hashmap
+     * @param {*} obj JSON with character data from the rick and morty API 
+     */
     addCharacter(obj)
     {
         const episodes = obj["episode"].map(episode => 

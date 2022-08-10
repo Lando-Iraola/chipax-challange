@@ -1,3 +1,8 @@
+/**
+ * Fulfills the Char Counter part of the challenge
+ * The description of this challenge can be found on 
+ * https://www.notion.so/Rick-and-Morty-Challenge-84a1b794dc09429fb3178c2a24e7c217
+ */
 class CharCounter
 {
     constructor()
@@ -34,9 +39,9 @@ class CharCounter
     /**
      * Checks the frequency of chars inside each object's name listed in the hashmaps
      * Also creates a structure as per the requirements of the challenge
-     * @param {*} locations 
-     * @param {*} episodes 
-     * @param {*} characters 
+     * @param {*} locations instance of Locations
+     * @param {*} episodes instance of Episodes
+     * @param {*} characters instance of Characters
      * @returns Requested structure by the challenge
      */
     fulfillContract(locations, episodes, characters)

@@ -1,5 +1,6 @@
 /**
- * Holds data about a location
+ * Fulfills the Char Counter part of the challenge
+ * The description of this challenge can be found on https://www.notion.so/Rick-and-Morty-Challenge-84a1b794dc09429fb3178c2a24e7c217
  */
 class Location
 {
@@ -28,7 +29,8 @@ class Location
 }
 
 /**
- * Holds a many locations in a hashmap
+ * Holds a hashmap with many Location for quick access.
+ * Character holds knowledge of these ids
  */
 class Locations
 {
@@ -38,6 +40,10 @@ class Locations
         
     }
 
+    /**
+     * Adds instance of Location to locations hashmap
+     * @param {*} obj JSON with location data from the rick and morty API 
+     */
     addLocation(obj)
     {
         let residents = obj["residents"].map(resident => 
