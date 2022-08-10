@@ -13,36 +13,58 @@ function saveJSON(name,json)
 
 async function main()
 {
-    console.log("Started downloading Episode data");
-    const e = await fetchJSON(knownURLS.episodes);
-    console.log("Finished downloading Episode data");
+    const { performance } = require('perf_hooks');
+    const startTime = performance.now();
 
+    const downloadStartTime = performance.now();
+    console.log("Started downloading Episode data");
+    const epStartTime = performance.now();
+    const e = await fetchJSON(knownURLS.episodes);
+    const epEndTime = performance.now();
+    console.log(`Finished downloading Episode data in ${(epEndTime - epStartTime) / 1000} seconds`);
+
+    console.log("Started downloading Character data");
+    const charStartTime = performance.now();
+    const crs = await fetchJSON(knownURLS.characters)
+    const charEndTime = performance.now();
+    console.log(`Finished downloading Character data in ${(charEndTime - charStartTime) / 1000} seconds`);
+
+    console.log("Started downloading Location data");
+    const locationStartTime = performance.now();
+    const ls = await fetchJSON(knownURLS.location);
+    const locationEndTime = performance.now();
+    console.log(`Finished downloading Location data in ${(locationEndTime - locationStartTime) / 1000} seconds`);
+
+    const downloadEndTime = performance.now();
+    console.log(`\n\n\n\nfinished downloading in ${(downloadEndTime - downloadStartTime) / 1000} seconds\n\n\n`);
+
+    const instantiationStartTime = performance.now();
     console.log("Started instantiating episodes");
+    const epInstStartTime = performance.now();
     const episodes = new Episodes();
     for(let eps of e)
         episodes.addEpisode(eps);
-    console.log("Finished instantiating episodes..");
-
-    console.log("Started downloading Character data");
-    const crs = await fetchJSON(knownURLS.characters)
-    console.log("Finished downloading Character data");
+    const epInstEndTime = performance.now();
+    console.log(`Finished instantiating episodes in ${epInstEndTime - epInstStartTime} ms`);
 
     console.log("Started instantiating characters");
+    const charInstStartTime = performance.now();
     const characters = new Characters();
     for(let char of crs)
         characters.addCharacter(char);
-    console.log("Finished instantiating characters");
-
-    console.log("Started downloading Location data");
-    const ls = await fetchJSON(knownURLS.location);
-    console.log("Finished downloading Location data");
-    console.log("finished downloading");
+    const charInstEndTime = performance.now();
+    console.log(`Finished instantiating characters in ${charInstEndTime - charInstStartTime} ms`);
 
     console.log("Started instantiating locations");
+    const locationInstStartTime = performance.now();
     const locations = new Locations();
     for(let loc of ls)
         locations.addLocation(loc);
-    console.log("Finished instantiating locations");
+    const locationInstEndTime = performance.now();
+    console.log(`Finished instantiating locations ${locationInstEndTime - locationInstStartTime} in ms`);
+
+    const instantiationEndTime = performance.now();
+    console.log(`Finished instantiating everything in ${instantiationEndTime - instantiationStartTime} ms`)
 
     
     console.log("Started processing...");
@@ -51,7 +73,10 @@ async function main()
     saveJSON("locations",JSON.stringify(locations.locations, null, 4));
     saveJSON("episodes",JSON.stringify(episodes.episodes, null, 4));
     saveJSON("example",JSON.stringify(charCounter.fulfillContract(locations,episodes,characters), null, 4));
-    console.log("finished");
+
+    const endTime = performance.now();
+
+    console.log(`finished in ${(endTime - startTime) / 1000} seconds`);
 }
 
 (async () => {main()})()
