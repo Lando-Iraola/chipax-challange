@@ -6,7 +6,7 @@ function saveJSON(name,json)
 
 async function downloadData()
 {
-    const {knownURLS, fetchJSON, fetchCharacters} = require("./external-api-consumption/external.js");
+    const {knownURLS, fetchJSON} = require("./external-api-consumption/external.js");
 
     const downloadStartTime = performance.now();
     console.log("Started downloading Episode data");
@@ -17,7 +17,7 @@ async function downloadData()
 
     console.log("Started downloading Character data");
     const charStartTime = performance.now();
-    const charactersObj = await fetchCharacters();
+    const charactersObj = await fetchJSON(knownURLS.characters);
     const charEndTime = performance.now();
     console.log(`Finished downloading Character data in ${(charEndTime - charStartTime) / 1000} seconds`);
 

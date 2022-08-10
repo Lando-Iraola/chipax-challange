@@ -20,24 +20,13 @@ async function fetchJSON(url = null)
         return;
     
     let response = await fetch(url)
-    let json = await response.json();
-    
-    if(!json.info.next)
-        return json.results;
-    
-    return json.results.concat(await fetchJSON(json.info.next));;
-}
-
-async function fetchCharacters()
-{
-    let response = await fetch(knownURLS.characters)
     let firstPage = await response.json();
     
     const promises = [];
     for(let i = 2; i <= firstPage.info.pages; i++)
     {
-        const url = `${knownURLS.characters}?page=${i}`;
-        promises.push(fetch(url));
+        const pageUrl = `${url}?page=${i}`;
+        promises.push(fetch(pageUrl));
     }
 
     const remainerPages = await Promise.allSettled(promises);
@@ -45,9 +34,9 @@ async function fetchCharacters()
 
     for(let result of remainerPages)
     {
-       const r = await result.value;
-       const nThPage = await r.json();
-       results = results.concat(nThPage.results);
+        const r = await result.value;
+        const nThPage = await r.json();
+        results = results.concat(nThPage.results);
     }
 
     return results;
@@ -56,6 +45,5 @@ async function fetchCharacters()
 module.exports = 
 {
     knownURLS,
-    fetchJSON,
-    fetchCharacters
+    fetchJSON
 }
