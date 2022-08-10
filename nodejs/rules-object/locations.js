@@ -52,4 +52,4 @@ class Locations
     }
 }
 
-module.exports = {Location, Locations};
+module.exports = {Locations};

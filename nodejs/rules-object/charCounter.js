@@ -17,14 +17,13 @@ class CharCounter
             return;
 
         let count = 0;
-        let resource = hashmap[Object.keys(hashmap)[0]].constructor.name;
+        
         for(let id in hashmap)
-        {
-            count += hashmap[id].characterFrequencyInName(char)
-            
-        }
+            count += hashmap[id].characterFrequencyInName(char);
 
-        const structure = {
+        let resource = hashmap[Object.keys(hashmap)[0]].constructor.name;
+        const structure = 
+        {
             char,
             count,
             resource
@@ -53,20 +52,27 @@ class CharCounter
         if(missing)
             return missing;
         
-        const timeConstraint = 3000; //3 seconds, in milliseconds
-
-        const l = frequency(locations.locations, "l");
-        const e = frequency(episodes.episodes, "e");
-        const c = frequency(characters.characters, "c");
         
+        const { performance } = require('perf_hooks');
+        const startTime = performance.now();
+        const l = this.frequency(locations.locations, "l");
+        const e = this.frequency(episodes.episodes, "e");
+        const c = this.frequency(characters.characters, "c");
+        const endTime = performance.now();
+
+        const time = endTime - startTime;
+        const timeConstraint = 3000; //3 seconds, in milliseconds
+        const in_time = time < timeConstraint
         const structure = 
         {
             exercise_name: "Char counter",
             time,
-            in_time: time < timeConstraint,
+            in_time,
             results: [l,e,c]
         }
         
         return structure;
     }
 }
+
+module.exports = {CharCounter};

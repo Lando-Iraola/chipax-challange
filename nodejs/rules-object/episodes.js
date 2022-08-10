@@ -45,3 +45,5 @@ class Episodes
         this.episodes[obj["id"]] = e;
     }
 }
+
+module.exports = {Episodes};

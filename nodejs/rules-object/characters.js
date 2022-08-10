@@ -54,3 +54,5 @@ class Characters
         this.characters[obj["id"]] = c;
     }
 }
+
+module.exports = {Characters};
