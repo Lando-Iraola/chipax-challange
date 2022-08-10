@@ -9,7 +9,8 @@ async function downloadData()
     const {knownURLS, fetchJSON} = require("./external-api-consumption/external.js");
 
     const downloadStartTime = performance.now();
-    console.log("Started downloading Episode data");
+    const cyan = `\x1b[36m%s`;
+    console.log(cyan, "Started downloading Episode data");
     const epStartTime = performance.now();
     const episodesObj = await fetchJSON(knownURLS.episodes);
     const epEndTime = performance.now();
@@ -28,7 +29,8 @@ async function downloadData()
     console.log(`Finished downloading Location data in ${(locationEndTime - locationStartTime) / 1000} seconds`);
 
     const downloadEndTime = performance.now();
-    console.log(`\n\nfinished downloading in ${(downloadEndTime - downloadStartTime) / 1000} seconds\n\n`);
+    const endColor = `\x1b[0m`;
+    console.log(`finished downloading in ${(downloadEndTime - downloadStartTime) / 1000} seconds`, endColor);
 
     return { episodesObj, charactersObj, locationObj };
 }
@@ -65,7 +67,7 @@ function instantiateClasses(episodesObj, charactersObj, locationObj)
     console.log(`Finished instantiating locations ${locationInstEndTime - locationInstStartTime} in ms`);
 
     const instantiationEndTime = performance.now();
-    console.log(`\n\nFinished instantiating everything in ${instantiationEndTime - instantiationStartTime} ms\n\n`)
+    console.log(`Finished instantiating everything in ${instantiationEndTime - instantiationStartTime} ms`)
 
     return {episodes, characters, locations}
 }
@@ -78,7 +80,8 @@ async function main()
     const {episodesObj, charactersObj, locationObj} = await downloadData();
     const {episodes, characters, locations} = instantiateClasses(episodesObj, charactersObj, locationObj);
 
-    console.log("Started fulfilling Challenge requirements");
+    const cyan = `\x1b[36m%s`;
+    console.log(cyan, "Started fulfilling Challenge requirements");
     const requirementsStartTime = performance.now();
     const {CharCounter} = require("./rules-object/charCounter");
     const charCounter = new CharCounter();
@@ -98,7 +101,9 @@ async function main()
 
     const endTime = performance.now();
 
-    console.log(`finished in ${(endTime - startTime) / 1000} seconds`);
+    const green = `\x1b[32m%s`;
+    const endColor = `\x1b[0m`;
+    console.log(green, `finished in ${(endTime - startTime) / 1000} seconds`, endColor);
 }
 
 (async () => {main()})()
