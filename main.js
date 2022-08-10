@@ -4,6 +4,11 @@ function saveJSON(name,json)
     fs.writeFileSync(`${name}.json`, json)
 }
 
+/**
+ * Extracted method for clarity.
+ * Download API data and prints to the console
+ * @returns obj with all 3 known endpoints data
+ */
 async function downloadData()
 {
     const {knownURLS, fetchJSON} = require("./external-api-consumption/external.js");
@@ -56,6 +61,10 @@ function instantiateClasses(episodesObj, charactersObj, locationObj)
     return {episodes, characters, locations}
 }
 
+/**
+ * Executes in order to fulfill the requirements listed on the challenge
+ * Results in the creation of a JSON file in the execution folder
+ */
 async function main()
 {
     const { performance } = require('perf_hooks');

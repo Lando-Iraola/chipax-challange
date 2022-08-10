@@ -12,7 +12,7 @@ const knownURLS =
  * Returns all the data of the targeted API,
  * Expects the presence of results and info in the response
  * @param {*} url one of the corresponding urls within the object knownURLS
- * @returns 
+ * @returns concatenated results section from the API response
  */
 async function fetchJSON(url = null)
 {
