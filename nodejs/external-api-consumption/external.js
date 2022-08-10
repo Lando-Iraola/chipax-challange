@@ -1,15 +1,24 @@
-const urls = 
+/**
+ * All known endpoints
+ */
+const knownURLS = 
 {
     characters : `https://rickandmortyapi.com/api/character`,
     episodes : `https://rickandmortyapi.com/api/episode`,
     location : `https://rickandmortyapi.com/api/location`
 }
 
+/**
+ * Returns all the data of the targeted API,
+ * Expects the presence of results and info in the response
+ * @param {*} url one of the corresponding urls within the object knownURLS
+ * @returns 
+ */
 async function fetchJSON(url = null)
 {
     if(!url)
         return;
-    console.log(url);
+    
     let response = await fetch(url)
     let json = await response.json();
     
@@ -19,22 +28,8 @@ async function fetchJSON(url = null)
     return json.results.concat(await fetchJSON(json.info.next));;
 }
 
-function saveJSON(json)
+module.exports = 
 {
-    const fs = require("fs");
-    fs.writeFileSync("example.json", json)
-}
-
-
-(
-    async () => saveJSON(JSON.stringify(await fetchJSON(urls.episodes))
-)
-)()
-
-function factorial(num)
-{
-    if(num === 1)
-        return num;
-    
-    return num * factorial(num - 1)
+    knownURLS,
+    fetchJSON
 }
