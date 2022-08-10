@@ -64,7 +64,7 @@ function instantiateClasses(episodesObj, charactersObj, locationObj)
     for(let loc of locationObj)
         locations.addLocation(loc);
     const locationInstEndTime = performance.now();
-    console.log(`Finished instantiating locations ${locationInstEndTime - locationInstStartTime} in ms`);
+    console.log(`Finished instantiating locations in ${locationInstEndTime - locationInstStartTime} ms`);
 
     const instantiationEndTime = performance.now();
     console.log(`Finished instantiating everything in ${instantiationEndTime - instantiationStartTime} ms`)
