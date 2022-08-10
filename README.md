@@ -8,4 +8,4 @@ The challenge description can be found [here](https://www.notion.so/Rick-and-Mor
 npm run start
 
 # Dependencies
-Node.js version 18.7.0
+Node.js version 18.7.0 - why? to use the included fetch api
