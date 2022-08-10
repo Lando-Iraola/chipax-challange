@@ -34,6 +34,15 @@ async function downloadData()
     return { episodesObj, charactersObj, locationObj };
 }
 
+/**
+ * Extracted method for clarity
+ * Instantiates Characters, Episodes and Locations
+ * prints to the console
+ * @param {*} episodesObj results section from episodes API
+ * @param {*} charactersObj results section from character API
+ * @param {*} locationObj results section from location API
+ * @returns Obj that contains the instantiated things
+ */
 function instantiateClasses(episodesObj, charactersObj, locationObj)
 {
     const {Characters} = require("./rules-object/characters");
